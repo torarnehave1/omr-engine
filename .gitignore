@@ -1,0 +1,42 @@
+# Claude project tracking (do not commit)
+_project/
+
+# Reference HTML (private — keep out of public repo)
+omr_engine.html
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Vite cache
+.vite/
+
+# macOS metadata
+._*
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+.dev.vars
+
+# Wrangler / Cloudflare
+.wrangler/
+worker-configuration.d.ts
+
+# Test coverage
+coverage/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
