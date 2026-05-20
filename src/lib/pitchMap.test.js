@@ -14,12 +14,13 @@ describe('constants', () => {
     expect(BASE_SOL).toEqual({ C: 'DO', D: 'RE', E: 'MI', F: 'FA', G: 'SOL', A: 'LA', B: 'TI' });
   });
 
-  it('ALL_SOL contains all 11 solfège tokens (incl. SUS, FI, TIB, MIB)', () => {
+  it('ALL_SOL contains all 11 solfège tokens (incl. SUS, FI, SI, MIB)', () => {
     expect(ALL_SOL).toHaveLength(11);
     expect(ALL_SOL).toContain('SUS');
     expect(ALL_SOL).toContain('FI');
-    expect(ALL_SOL).toContain('TIB');
+    expect(ALL_SOL).toContain('SI');   // renamed from TIB on 2026-05-20
     expect(ALL_SOL).toContain('MIB');
+    expect(ALL_SOL).not.toContain('TIB'); // ensure old name is fully removed
   });
 
   it('SOL_COL has a color for every ALL_SOL entry', () => {
@@ -93,9 +94,9 @@ describe('posToNote', () => {
   });
 
   describe('hicaz_a (Bb + F#) — flats apply B, sharps apply F→FI', () => {
-    it('pos 4 → B4 becomes Bb4 / TIB', () => {
+    it('pos 4 → B4 becomes Bb4 / SI (was TIB before 2026-05-20 rename)', () => {
       expect(posToNote(4, KEY_SIGS.hicaz_a)).toEqual({
-        letter: 'B', accidental: 'b', octave: 4, solfege: 'TIB', pitch: 'Bb4',
+        letter: 'B', accidental: 'b', octave: 4, solfege: 'SI', pitch: 'Bb4',
       });
     });
     it('pos 8 → F5 becomes F#5 / FI (F# special case)', () => {
@@ -111,9 +112,9 @@ describe('posToNote', () => {
   });
 
   describe('ussak (Bb only)', () => {
-    it('pos 4 → B4 becomes TIB', () => {
+    it('pos 4 → B4 becomes SI (was TIB before 2026-05-20 rename)', () => {
       const n = posToNote(4, KEY_SIGS.ussak);
-      expect(n.solfege).toBe('TIB');
+      expect(n.solfege).toBe('SI');
       expect(n.pitch).toBe('Bb4');
     });
     it('pos 8 → F5 stays FA (no sharps)', () => {

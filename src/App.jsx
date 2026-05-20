@@ -1,7 +1,7 @@
-import { useReducer } from 'react'
+import { useReducer, useContext } from 'react'
 import { initialState, reducer } from './state/appReducer.js'
+import AuthGate, { AuthContext } from './components/AuthGate.jsx'
 import Header from './components/Header.jsx'
-import ApiTokenInput from './components/ApiTokenInput.jsx'
 import UploadZone from './components/UploadZone.jsx'
 import PdfCard from './components/PdfCard.jsx'
 import CanvasPanel from './components/CanvasPanel.jsx'
@@ -11,13 +11,79 @@ import SaveToCloudButton from './components/SaveToCloudButton.jsx'
 import CloudLibrary from './components/CloudLibrary.jsx'
 import Toast from './components/Toast.jsx'
 
-export default function App() {
+function AuthedApp() {
+  const auth = useContext(AuthContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <>
       <Header />
-      <ApiTokenInput />
+
+      {/* Compact signed-in bar (email + role + logout). Replaces the API-token paste field. */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 800,
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          gap: '.6rem',
+          fontSize: '.6rem',
+          color: 'var(--muted)',
+        }}
+      >
+        {auth?.devAutoLogin && (
+          <span
+            title="Dev auto-login from .env.local — production builds skip this path"
+            style={{
+              background: 'rgba(240,192,96,.12)',
+              border: '1px solid rgba(240,192,96,.4)',
+              color: 'var(--gold)',
+              borderRadius: 5,
+              padding: '.15rem .45rem',
+              fontSize: '.52rem',
+              letterSpacing: '.1em',
+              textTransform: 'uppercase',
+              fontWeight: 700,
+            }}
+          >
+            dev
+          </span>
+        )}
+        {auth?.user?.role && (
+          <span
+            style={{
+              background: 'rgba(168,124,240,.12)',
+              border: '1px solid rgba(168,124,240,.4)',
+              color: 'var(--purple)',
+              borderRadius: 5,
+              padding: '.15rem .45rem',
+              fontSize: '.52rem',
+              letterSpacing: '.1em',
+              textTransform: 'uppercase',
+              fontWeight: 700,
+            }}
+          >
+            {auth.user.role}
+          </span>
+        )}
+        <span>signed in as <strong style={{ color: 'var(--green)' }}>{auth?.user?.email}</strong></span>
+        <button
+          onClick={auth?.logout}
+          style={{
+            background: 'none',
+            border: '1px solid var(--border2)',
+            borderRadius: 6,
+            color: 'var(--muted)',
+            fontFamily: 'inherit',
+            fontSize: '.58rem',
+            padding: '.3rem .65rem',
+            cursor: 'pointer',
+          }}
+        >
+          log out
+        </button>
+      </div>
 
       {state.show.upload && <UploadZone dispatch={dispatch} />}
 
@@ -68,5 +134,13 @@ export default function App() {
 
       <Toast msg={state.toastMsg} />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <AuthGate>
+      <AuthedApp />
+    </AuthGate>
   )
 }

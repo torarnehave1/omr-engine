@@ -160,9 +160,10 @@ canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
 .seq-wrap.visible { display: flex; }
 .note-seq { display: flex; flex-wrap: wrap; gap: 5px; }
 
+/* .nc — note card. Diverges from HTML (min-width 50→45, padding tightened by ~5px) per user request 2026-05-19. */
 .nc {
-  border-radius: 9px; padding: .5rem .6rem; display: flex; flex-direction: column;
-  align-items: center; gap: 2px; min-width: 50px; border-top: 3px solid transparent;
+  border-radius: 9px; padding: .35rem .45rem; display: flex; flex-direction: column;
+  align-items: center; gap: 2px; min-width: 45px; border-top: 3px solid transparent;
   transition: transform .12s, box-shadow .12s; cursor: pointer; position: relative; user-select: none;
 }
 .nc:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.4); }
@@ -179,7 +180,7 @@ canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
 .nc.SOL { border-color: var(--sol); background: rgba(52,211,153,.1); }  .nc.SOL .ns { color: var(--sol); }
 .nc.LA  { border-color: var(--la);  background: rgba(56,189,248,.1); }  .nc.LA  .ns { color: var(--la); }
 .nc.TI  { border-color: var(--ti);  background: rgba(167,139,250,.1); } .nc.TI  .ns { color: var(--ti); }
-.nc.TIB { border-color: var(--tib); background: rgba(192,132,252,.1); } .nc.TIB .ns { color: var(--tib); }
+.nc.SI  { border-color: var(--tib); background: rgba(192,132,252,.1); } .nc.SI  .ns { color: var(--tib); } /* renamed TIB→SI 2026-05-20; --tib variable name kept internal */
 .nc.FI  { border-color: var(--fi);  background: rgba(74,222,128,.1); }  .nc.FI  .ns { color: var(--fi); }
 .nc.MIB { border-color: var(--mib); background: rgba(253,230,138,.1); } .nc.MIB .ns { color: var(--mib); }
 .nc.SUS { border-color: #475569; background: rgba(71,85,105,.15); border-style: dashed; }
@@ -203,7 +204,7 @@ canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
 .sol-opt:hover { transform: scale(1.1); background: var(--s1); }
 .sol-opt.DO  { color: var(--do); }  .sol-opt.RE  { color: var(--re); }  .sol-opt.MI  { color: var(--mi); }
 .sol-opt.FA  { color: var(--fa); }  .sol-opt.SOL { color: var(--sol); } .sol-opt.LA  { color: var(--la); }
-.sol-opt.TI  { color: var(--ti); }  .sol-opt.TIB { color: var(--tib); } .sol-opt.FI  { color: var(--fi); }
+.sol-opt.TI  { color: var(--ti); }  .sol-opt.SI  { color: var(--tib); } .sol-opt.FI  { color: var(--fi); } /* TIB→SI 2026-05-20 */
 .sol-opt.MIB { color: var(--mib); } .sol-opt.DEL { color: var(--red); }
 .sol-opt.SUS { color: #64748b; letter-spacing: .05em; grid-column: span 2; border-style: dashed; }
 .picker-close {

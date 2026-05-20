@@ -1,4 +1,6 @@
-// Ported line-for-line from omr_engine.html (lines 372-381, 784-807).
+// Ported from omr_engine.html (lines 372-381, 784-807).
+// 2026-05-20: TIB renamed to SI per user request. Natural B still maps to TI.
+// HTML reference stays untouched (PLAN §6 / lessons_learned.md #3 — HTML is template only).
 
 // Treble clef: pos 0 = E4 (bottom line), each +1 = one staff step up.
 export const STAFF_POS = [
@@ -9,11 +11,11 @@ export const STAFF_POS = [
 
 export const BASE_SOL = { C: 'DO', D: 'RE', E: 'MI', F: 'FA', G: 'SOL', A: 'LA', B: 'TI' };
 
-export const ALL_SOL = ['DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'TI', 'TIB', 'FI', 'MIB', 'SUS'];
+export const ALL_SOL = ['DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'TI', 'SI', 'FI', 'MIB', 'SUS'];
 
 export const SOL_COL = {
   DO: '#f87171', RE: '#fb923c', MI: '#fbbf24', FA: '#84cc16',
-  SOL: '#34d399', LA: '#38bdf8', TI: '#a78bfa', TIB: '#c084fc',
+  SOL: '#34d399', LA: '#38bdf8', TI: '#a78bfa', SI: '#c084fc',
   FI: '#4ade80', MIB: '#fde68a', SUS: '#64748b',
 };
 
@@ -39,5 +41,6 @@ export function posToNote(pos, keySig) {
   if (keySig.flats.includes(l))  { accidental = 'b'; pitch = l + 'b' + o; solfege = solfege + 'B'; }
   if (keySig.sharps.includes(l)) { accidental = '#'; pitch = l + '#' + o; solfege = l === 'F' ? 'FI' : solfege + 'SHARP'; }
   if (solfege === 'TISHARP') solfege = 'TI';
+  if (solfege === 'TIB') solfege = 'SI'; // user rename 2026-05-20
   return { letter: l, accidental, octave: o, solfege, pitch };
 }
