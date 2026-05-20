@@ -186,7 +186,7 @@ export default function Login() {
           }}
         >
           A short-lived link will be emailed to you. No password required.<br />
-          Powered by <code style={{ color: 'var(--accent)' }}>cookie.vegvisr.org</code>.
+          Powered by <code style={{ color: 'var(--accent)' }}>Vegvisr.org</code>
         </p>
       </div>
     </div>
